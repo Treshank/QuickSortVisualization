@@ -9,6 +9,7 @@ int length;
 int delay;
 int* arr;
 void (*sort)(int*, int);
+static int window, returnsubmenucolor1, value=0, returnmenu;
 
 void randomizeArray(int* arr, int length)
 {
@@ -104,6 +105,28 @@ void keyboardEvent(unsigned char c, int x, int y)
 }
 
 
+void menu(int n){
+    if (n == 0)
+    {
+        glutDestroyWindow(window);
+        exit(0);
+    }
+    else if(n==1)
+    {
+        sort(arr, length);
+    }
+    glutPostRedisplay();
+}
+
+
+void createMenu(void) {
+    returnmenu = glutCreateMenu(menu); //function to call menu function and return value
+    glutAddMenuEntry("Start", 1);
+    glutAddMenuEntry("Quit", 0);
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
+
+
 void setUpGlutAndArray(int argc, char** argv, void (*sortingAlgorithm)(int*, int))
 {
     sort = sortingAlgorithm;
@@ -119,7 +142,8 @@ void setUpGlutAndArray(int argc, char** argv, void (*sortingAlgorithm)(int*, int
     glutInitDisplayMode(GLUT_SINGLE);
     glutInitWindowSize(length,length);
     glutInitWindowPosition(100,100);
-    glutCreateWindow("Sort Visualization");
+    window=glutCreateWindow("Sort Visualization");
+    createMenu();
 
     glutDisplayFunc(renderFunction);
     glutKeyboardFunc(keyboardEvent);

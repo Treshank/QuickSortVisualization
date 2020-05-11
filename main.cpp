@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <iostream>
 
 
 int partition(int* a, int low, int high)
@@ -43,9 +44,12 @@ void visualizeQuickSort(int* a, int length)
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
-
     delay  = 1500;
     length = 500;
+    std::cout<<"Enter the delay value (default=1500): ";
+    std::cin>>delay;
+    std::cout<<"Enter the length value (default=500): ";
+    std::cin>>length;
     setUpGlutAndArray(argc, argv, visualizeQuickSort);
     free(arr);
 
